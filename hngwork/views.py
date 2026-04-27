@@ -6,9 +6,10 @@ from django .db. models import Q
 
 from .models import Profile
 from .serializer import ProfileSerializer, ProfileListSerializer  
-from .services import externalAPIservice
+# Change this line:
+from .services import ExternalAPIService
 
-class ProfileCreateView(APIView):  # Capital 'P' matches your urls.py
+class ProfileView(APIView): 
 
     def post(self, request):
         name = request.data.get("name")
@@ -27,7 +28,7 @@ class ProfileCreateView(APIView):  # Capital 'P' matches your urls.py
 
         name = name.lower()
 
-        # Idempotency check
+       
         existing = Profile.objects.filter(name=name).first()
         if existing:
             return Response({

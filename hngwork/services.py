@@ -1,6 +1,6 @@
 import requests
 
-class externalAPIservice:
+class ExternalAPIService:
     @staticmethod
     def get_gender(name):
         url = f"https://api.genderize.io?name={name}"
@@ -42,18 +42,18 @@ class externalAPIservice:
         }
 
 
-@staticmethod
-def get_country(name):
-    url = f"https://api.nationalize.io?name={name}"
-    res = requests.get(url).json()
+    @staticmethod
+    def get_country(name):
+        url = f"https://api.nationalize.io?name={name}"
+        res = requests.get(url).json()
 
-    countries = res.get("country", [])
-    if not countries:
-            raise Exception("Nationalize returned an invalid response")
+        countries = res.get("country", [])
+        if not countries:
+                raise Exception("Nationalize returned an invalid response")
 
-    best = max(countries, key=lambda x: x["probability"])
+        best = max(countries, key=lambda x: x["probability"])
 
-    return {
-            "country_id": best["country_id"],
-            "country_probability": best["probability"]
-        }
+        return {
+                "country_id": best["country_id"],
+                "country_probability": best["probability"]
+            }
